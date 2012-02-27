@@ -1,6 +1,6 @@
 # QuickLaunch for FlashDevelop 4
 
-Adds a quick launch box that provides easy access to commands, files, classes, and more. Search all providers by default or use a shortcut to search an individual provider. @cmd to search menu items. @doc to search open documents. @type to search types in your project.
+Adds a quick launch box that provides easy access to commands, files, classes, and more. It can be placed in either the menu bar or the tool bar. By default it will search all providers. You can use a shortcuts to search an individual provider: @cmd to search menu items, @doc to search open documents, or @type to search types in your project.
 
 ![Screenshot](http://dl.dropbox.com/u/3917850/images/quicklaunch.png)
 

@@ -51,6 +51,12 @@ namespace QuickLaunch.Controls
             }
         }
 
+        public ToolStripRenderer Renderer
+        {
+            get { return _dropdown.Renderer; }
+            set { _dropdown.Renderer = value; }
+        }
+
         private void ApplyWatermark()
         {
             TextBox.SetWatermark(_watermarkText);

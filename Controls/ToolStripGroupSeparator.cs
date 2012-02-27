@@ -39,11 +39,12 @@ namespace QuickLaunch.Controls
                 Rectangle textRectangle = new Rectangle(Owner.Padding.Left - 2, 0, textSize.Width + 2 + Owner.Padding.Left, this.Height);
 
                 Region oldClip = e.Graphics.Clip;
-                e.Graphics.Clip = new Region(new Rectangle(textRectangle.Width + e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - (textRectangle.Width + e.ClipRectangle.X), e.ClipRectangle.Height));
+                e.Graphics.Clip = new Region(new Rectangle(textRectangle.Width + e.ClipRectangle.X, e.ClipRectangle.Y, Owner.Width - textRectangle.Right - Owner.Padding.Right, e.ClipRectangle.Height));
                 base.OnPaint(e);
                 e.Graphics.Clip = oldClip;
 
                 Owner.Renderer.DrawItemText(new ToolStripItemTextRenderEventArgs(e.Graphics, this, Name, textRectangle, Color.Blue, Owner.Font, ContentAlignment.MiddleLeft));
+
             }
             else
             {

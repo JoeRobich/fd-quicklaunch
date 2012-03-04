@@ -155,16 +155,6 @@ namespace QuickLaunch
         private void UpdateWatermark()
         {
             string watermark = ResourceHelper.GetString("QuickLaunch.Label.QuickLaunch");
-            string shortcutString = string.Empty;
-
-            if (!string.IsNullOrEmpty(_activateItem.ShortcutKeyDisplayString))
-                shortcutString = _activateItem.ShortcutKeyDisplayString;
-            else if (_activateItem.ShortcutKeys != Keys.None)
-                shortcutString = TypeDescriptor.GetConverter(typeof(Keys)).ConvertToString(_activateItem.ShortcutKeys);
-
-            if (!string.IsNullOrEmpty(shortcutString))
-                watermark += " (" + shortcutString.Replace("Oemtilde", "~") + ")";
-
             _quickLaunchBox.WatermarkText = watermark;
         }
 		

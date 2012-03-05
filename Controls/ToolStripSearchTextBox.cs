@@ -30,25 +30,36 @@ namespace QuickLaunch.Controls
             _searchIcon.Size = new Size(23, 23);
             _searchIcon.Image = PluginBase.MainForm.FindImage("251");
             _searchIcon.Cursor = Cursors.Default;
+            // Clear the search textbox when the icon is clicked.
             _searchIcon.Click += new EventHandler(_searchIcon_Click);
             TextBox.Controls.Add(_searchIcon);
 
+            // Update the icon in the search box
             TextBox.TextChanged += new EventHandler(TextBox_TextChanged);
         }
 
         public event EventHandler Search;
 
+        /// <summary>
+        /// Gets the items collection for the search dropdown.
+        /// </summary>
         public ToolStripItemCollection Items
         {
             get { return _dropdown.Items; }
         }
 
+        /// <summary>
+        /// Gets/Sets the text for the watermark.
+        /// </summary>
         public string WatermarkText
         {
             get { return _watermarkText; }
             set { _watermarkText = value; ApplyWatermark(); }
         }
 
+        /// <summary>
+        /// Gets/Sets whether the search dropdown is displayed.
+        /// </summary>
         public bool DroppedDown
         {
             get
@@ -65,6 +76,9 @@ namespace QuickLaunch.Controls
             }
         }
 
+        /// <summary>
+        /// Gets/Sets the render to use for the search dropdown.
+        /// </summary>
         public ToolStripRenderer Renderer
         {
             get { return _dropdown.Renderer; }
@@ -79,11 +93,13 @@ namespace QuickLaunch.Controls
 
         protected override bool ProcessCmdKey(ref Message m, Keys keyData)
         {
+            // If enter then fire the Search event
             if (keyData == Keys.Enter)
             {
                 OnSearch();
                 return true;
             }
+            // If control then check from a editing shortcut
             else if ((keyData & Keys.Control) == Keys.Control)
             {
                 if ((keyData & Keys.V) == Keys.V)
@@ -129,6 +145,7 @@ namespace QuickLaunch.Controls
 
         void TextBox_TextChanged(object sender, EventArgs e)
         {
+            // If the text length is 0 then show a magnifier, otherwise show a x
             _searchIcon.Image = TextBox.TextLength == 0 ? PluginBase.MainForm.FindImage("251") : PluginBase.MainForm.FindImage("153");
         }
 
@@ -151,11 +168,21 @@ namespace QuickLaunch.Controls
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint msg, uint wParam, IntPtr lParam);
 
+        /// <summary>
+        /// Sets the watermark for a textbox
+        /// </summary>
+        /// <param name="textBox"></param>
+        /// <param name="watermarkText"></param>
         public static void SetWatermark(this TextBox textBox, string watermarkText)
         {
             SendMessage(textBox.Handle, EM_SETCUEBANNER, 0, watermarkText);
         }
 
+        /// <summary>
+        /// Sets the interior right margin for a textbox
+        /// </summary>
+        /// <param name="textBox"></param>
+        /// <param name="margin"></param>
         public static void SetRightMargin(this TextBox textBox, int margin)
         {
             SendMessage(textBox.Handle, EM_SETMARGIN, EC_RIGHTMARGIN, (IntPtr)(margin << 16));

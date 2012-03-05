@@ -22,7 +22,7 @@ namespace QuickLaunch
         private const int API = 1;
         private const string NAME = "QuickLaunch";
         private const string GUID = "128ACEAB-3A9A-48bf-8FEF-7A06475D02CF";
-        private const string HELP = "www.flashdevelop.org/community/";
+        private const string HELP = "http://www.flashdevelop.org/community/viewtopic.php?f=4&t=9443";
         private const string DESCRIPTION = "Adds a quick launch box that provides easy access to commands, files, classes, and more..";
         private const string AUTHOR = "Joey Robichaud";
 

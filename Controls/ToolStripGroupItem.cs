@@ -46,19 +46,23 @@ namespace QuickLaunch.Controls
         {
             if (!IsVertical)
             {
+                // Draw the background
                 Owner.Renderer.DrawMenuItemBackground(new ToolStripItemRenderEventArgs(e.Graphics, this));
 
                 int padding = this.Owner.Padding.Left;
 
+                // Draw the image
                 padding += 4;
                 if (Image != null)
                     e.Graphics.DrawImage(Image, padding, (e.ClipRectangle.Height - Image.Height) / 2);
 
+                // Draw the name text
                 padding += 23;
                 Size textSize = TextRenderer.MeasureText(_name, Owner.Font);
                 Rectangle textRectangle = new Rectangle(padding, 0, textSize.Width, this.Height);
                 Owner.Renderer.DrawItemText(new ToolStripItemTextRenderEventArgs(e.Graphics, this, _name, textRectangle, Owner.ForeColor, Owner.Font, ContentAlignment.MiddleLeft));
 
+                // Draw the details text
                 if (!string.IsNullOrEmpty(_details))
                 {
                     padding += textSize.Width;

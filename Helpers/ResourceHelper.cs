@@ -17,7 +17,7 @@ namespace QuickLaunch.Helpers
         private static Dictionary<string, Image> _imageCache = new Dictionary<string, Image>();
 
         /// <summary>
-        /// Gets the specified localized string
+        /// Gets the specified localized string.
         /// </summary>
         public static string GetString(string key)
         {
@@ -37,11 +37,22 @@ namespace QuickLaunch.Helpers
             return result;
         }
 
+        /// <summary>
+        /// Gets the embedded image from the Resources folder. Assumes that the image is a png.
+        /// </summary>
+        /// <param name="name">The name of the embedded image</param>
+        /// <returns></returns>
         public static Image GetImage(string name)
         {
             return GetImage(name, "png");
         }
 
+        /// <summary>
+        /// Gets the embedded image from the Resources folder.
+        /// </summary>
+        /// <param name="name">The name of the image.</param>
+        /// <param name="extension">The extension of the image.</param>
+        /// <returns></returns>
         public static Image GetImage(string name, string extension)
         {
             Assembly callingAssembly = Assembly.GetCallingAssembly();

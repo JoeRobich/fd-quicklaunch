@@ -204,6 +204,7 @@ namespace QuickLaunch
         public void InitializeQuickLaunch()
         {
             _quickLaunchBox = new ToolStripSearchTextBox();
+            _quickLaunchBox.Name = ResourceHelper.GetString("QuickLaunch.Label.QuickLaunch");
             _quickLaunchBox.Renderer = new DockPanelStripRenderer();
             _quickLaunchBox.AutoSize = false;
             _quickLaunchBox.Width = 200;

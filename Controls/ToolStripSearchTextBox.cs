@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
@@ -87,8 +86,8 @@ namespace QuickLaunch.Controls
 
         private void ApplyWatermark()
         {
-            TextBox.SetWatermark(_watermarkText);
-            TextBox.SetRightMargin(23);
+            TextBoxHelper.SetWatermark(TextBox, _watermarkText);
+            TextBoxHelper.SetRightMargin(TextBox, 23);
         }
 
         protected override bool ProcessCmdKey(ref Message m, Keys keyData)
@@ -155,7 +154,7 @@ namespace QuickLaunch.Controls
         }
     }
 
-    internal static class TextBoxWatermarkExtensionMethod
+    internal static class TextBoxHelper
     {
         private const uint ECM_FIRST = 0x1500;
         private const uint EM_SETCUEBANNER = ECM_FIRST + 1;
@@ -173,7 +172,7 @@ namespace QuickLaunch.Controls
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="watermarkText"></param>
-        public static void SetWatermark(this TextBox textBox, string watermarkText)
+        public static void SetWatermark(TextBox textBox, string watermarkText)
         {
             SendMessage(textBox.Handle, EM_SETCUEBANNER, 0, watermarkText);
         }
@@ -183,7 +182,7 @@ namespace QuickLaunch.Controls
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="margin"></param>
-        public static void SetRightMargin(this TextBox textBox, int margin)
+        public static void SetRightMargin(TextBox textBox, int margin)
         {
             SendMessage(textBox.Handle, EM_SETMARGIN, EC_RIGHTMARGIN, (IntPtr)(margin << 16));
         }

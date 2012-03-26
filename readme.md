@@ -5,9 +5,10 @@ Adds a quick launch box that provides easy access to commands, files, classes, a
 ![Screenshot](http://dl.dropbox.com/u/3917850/images/quicklaunch.png)
 
 ## Download
-[Version 0.9](http://goo.gl/ocK1u)
+[Version 0.9.1](http://goo.gl/ocK1u)
 
 ## History
+**v0.9.1** - Now targets the .Net 2.0 Framework.  
 **v0.9** - Changed the search logic of the Open Documents and Project Types providers to use the same logic as Open Resource. The search box now handles the 'common' editing shortcuts such as ctrl+v (paste). Added search and clear icons in the margins of the search box to mimic the look and functionality of vista/web search boxes. Removed the shortcut key text from the search box watermark.  
 **v0.8** - Added Type provider and shortcut to activate quick launch.  
 **v0.1** - Initial creation  

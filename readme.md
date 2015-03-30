@@ -5,7 +5,7 @@ Adds a quick launch box that provides easy access to commands, files, classes, a
 ![Screenshot](http://dl.dropbox.com/u/3917850/images/quicklaunch.png)
 
 ## Download
-[Version 0.10](http://goo.gl/ocK1u)
+[Releases](https://github.com/JoeRobich/fd-quicklaunch/releases/) 
 
 ## History
 **v0.10** - Better support for high DPI. Fixed bug with non-en_US locales. Updated to work with FD5.  

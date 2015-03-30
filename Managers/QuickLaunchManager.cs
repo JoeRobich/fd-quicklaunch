@@ -81,7 +81,7 @@ namespace QuickLaunch.Managers
                             foundItems.AddRange(items.Items);
                         break;
                     }
-                }       
+                }
             }
             else
             {

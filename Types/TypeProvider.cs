@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using QuickLaunch.Managers;
+﻿using ASCompletion;
 using ASCompletion.Context;
 using ASCompletion.Model;
-using System.Windows.Forms;
 using QuickLaunch.Controls;
-using ASCompletion;
+using QuickLaunch.Managers;
+using System;
+using System.Collections.Generic;
 
 namespace QuickLaunch.Types
 {
@@ -40,11 +38,11 @@ namespace QuickLaunch.Types
         {
             ToolStripGroupItem item = (ToolStripGroupItem)sender;
             MemberModel member = (MemberModel)item.Tag;
-            
+
             int index = member.Name.LastIndexOf('.');
             string name = member.Name.Substring(index + 1);
             string packageName = index >= 0 ? member.Name.Substring(0, member.Name.Length - name.Length - 1) : string.Empty;
-            
+
             ClassModel classModel = ASContext.Context.GetModel(packageName, name, packageName);
             if (!classModel.IsVoid() && classModel.InFile != null)
                 ModelsExplorer.Instance.OpenFile(classModel.InFile.FileName);

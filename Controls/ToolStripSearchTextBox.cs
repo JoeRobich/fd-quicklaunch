@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
+﻿using PluginCore;
+using PluginCore.Helpers;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using QuickLaunch.Helpers;
-using PluginCore;
+using System.Windows.Forms;
 
 namespace QuickLaunch.Controls
 {
@@ -25,9 +23,9 @@ namespace QuickLaunch.Controls
             _dropdown.ItemClicked += new ToolStripItemClickedEventHandler(_dropdown_ItemClicked);
 
             _searchIcon = new PictureBox();
-            _searchIcon.Location = new Point(179, 2);
-            _searchIcon.Size = new Size(23, 23);
+            _searchIcon.Size = ScaleHelper.Scale(new Size(16, 16));
             _searchIcon.Image = PluginBase.MainForm.FindImage("251");
+            _searchIcon.SizeMode = PictureBoxSizeMode.StretchImage;
             _searchIcon.Cursor = Cursors.Default;
             // Clear the search textbox when the icon is clicked.
             _searchIcon.Click += new EventHandler(_searchIcon_Click);
@@ -87,7 +85,10 @@ namespace QuickLaunch.Controls
         private void ApplyWatermark()
         {
             TextBoxHelper.SetWatermark(TextBox, _watermarkText);
-            TextBoxHelper.SetRightMargin(TextBox, 23);
+
+            var iconOffset = _searchIcon.Width + ScaleHelper.Scale(4);
+            TextBoxHelper.SetRightMargin(TextBox, iconOffset);
+            _searchIcon.Location = new Point(this.Width - iconOffset, 0);
         }
 
         protected override bool ProcessCmdKey(ref Message m, Keys keyData)

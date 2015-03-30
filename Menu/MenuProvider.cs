@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using QuickLaunch.Managers;
-using System.Windows.Forms;
-using PluginCore;
-using System.ComponentModel;
+﻿using PluginCore;
 using QuickLaunch.Controls;
+using QuickLaunch.Managers;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace QuickLaunch.Menu
 {

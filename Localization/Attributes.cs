@@ -1,8 +1,6 @@
-﻿using System;
+﻿using QuickLaunch.Helpers;
+using System;
 using System.ComponentModel;
-using System.Collections.Generic;
-using System.Text;
-using QuickLaunch.Helpers;
 
 namespace QuickLaunch.Localization
 {
@@ -16,7 +14,7 @@ namespace QuickLaunch.Localization
             : base(key)
         {
         }
-        
+
         protected override string GetLocalizedString(string key)
         {
             if (!initialized)
@@ -75,7 +73,7 @@ namespace QuickLaunch.Localization
                 {
                     string key = base.DisplayName;
                     DisplayNameValue = ResourceHelper.GetString(key);
-                    if (DisplayNameValue == null) 
+                    if (DisplayNameValue == null)
                         DisplayNameValue = key;
                     initialized = true;
                 }

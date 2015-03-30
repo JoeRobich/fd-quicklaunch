@@ -1,24 +1,22 @@
-using System;
-using System.IO;
-using System.Drawing;
-using System.Windows.Forms;
-using System.ComponentModel;
-using PluginCore.Localization;
-using PluginCore.Utilities;
-using PluginCore.Managers;
 using PluginCore;
-using System.Runtime.InteropServices;
+using PluginCore.Helpers;
+using PluginCore.Managers;
+using PluginCore.Utilities;
 using QuickLaunch.Controls;
+using QuickLaunch.Documents;
+using QuickLaunch.Helpers;
 using QuickLaunch.Managers;
 using QuickLaunch.Menu;
-using QuickLaunch.Documents;
 using QuickLaunch.Types;
-using QuickLaunch.Helpers;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Windows.Forms;
 
 namespace QuickLaunch
 {
-	public class PluginMain : IPlugin
-	{
+    public class PluginMain : IPlugin
+    {
         private const int API = 1;
         private const string NAME = "QuickLaunch";
         private const string GUID = "128ACEAB-3A9A-48bf-8FEF-7A06475D02CF";
@@ -31,20 +29,20 @@ namespace QuickLaunch
         private ToolStripSearchTextBox _quickLaunchBox = null;
         private ToolStripMenuItem _activateItem = null;
 
-	    #region Required Properties
+        #region Required Properties
 
         /// <summary>
         /// Api level of the plugin
         /// </summary>
-        public Int32 Api
+        public int Api
         {
             get { return 1; }
         }
 
         /// <summary>
         /// Name of the plugin
-        /// </summary> 
-        public String Name
+        /// </summary>
+        public string Name
 		{
 			get { return NAME; }
 		}
@@ -52,31 +50,31 @@ namespace QuickLaunch
         /// <summary>
         /// GUID of the plugin
         /// </summary>
-        public String Guid
+        public string Guid
 		{
 			get { return GUID; }
 		}
 
         /// <summary>
         /// Author of the plugin
-        /// </summary> 
-        public String Author
+        /// </summary>
+        public string Author
 		{
 			get { return AUTHOR; }
 		}
 
         /// <summary>
         /// Description of the plugin
-        /// </summary> 
-        public String Description
+        /// </summary>
+        public string Description
 		{
 			get { return DESCRIPTION; }
 		}
 
         /// <summary>
         /// Web address for help
-        /// </summary> 
-        public String Help
+        /// </summary>
+        public string Help
 		{
 			get { return HELP; }
 		}
@@ -85,40 +83,40 @@ namespace QuickLaunch
         /// Object that contains the settings
         /// </summary>
         [Browsable(false)]
-        public Object Settings
+        public object Settings
         {
-            get { return this._settings; }
+            get { return _settings; }
         }
-		
+
 		#endregion
-		
+
 		#region Required Methods
-		
+
 		/// <summary>
 		/// Initializes the plugin
 		/// </summary>
 		public void Initialize()
-		{
-            this.InitBasics();
-            this.LoadSettings();
-            this.AddEventHandlers();
-            this.InitializeQuickLaunch();
-            this.UpdateLocation();
-            this.RegisterProviders();
+        {
+            InitBasics();
+            LoadSettings();
+            AddEventHandlers();
+            InitializeQuickLaunch();
+            UpdateLocation();
+            RegisterProviders();
         }
-		
+
 		/// <summary>
 		/// Disposes the plugin
 		/// </summary>
 		public void Dispose()
-		{
-            this.SaveSettings();
+        {
+            SaveSettings();
 		}
-		
+
 		/// <summary>
 		/// Handles the incoming events
 		/// </summary>
-		public void HandleEvent(Object sender, NotifyEvent e, HandlingPriority prority)
+		public void HandleEvent(object sender, NotifyEvent e, HandlingPriority prority)
 		{
 
 		}
@@ -157,7 +155,7 @@ namespace QuickLaunch
             string watermark = ResourceHelper.GetString("QuickLaunch.Label.QuickLaunch");
             _quickLaunchBox.WatermarkText = watermark;
         }
-		
+
 		#endregion
 
         #region Plugin Methods
@@ -177,14 +175,14 @@ namespace QuickLaunch
         /// </summary>
         public void InitBasics()
         {
-            String dataPath = Path.Combine(PluginCore.Helpers.PathHelper.DataDir, NAME);
+            string dataPath = Path.Combine(PluginCore.Helpers.PathHelper.DataDir, NAME);
             if (!Directory.Exists(dataPath)) Directory.CreateDirectory(dataPath);
-            this._settingFilename = Path.Combine(dataPath, "Settings.fdb");
+            _settingFilename = Path.Combine(dataPath, "Settings.fdb");
         }
 
         /// <summary>
         /// Adds the required event handlers
-        /// </summary> 
+        /// </summary>
         public void AddEventHandlers()
         {
             // Set events you want to listen (combine as flags)
@@ -207,7 +205,7 @@ namespace QuickLaunch
             _quickLaunchBox.Name = ResourceHelper.GetString("QuickLaunch.Label.QuickLaunch");
             _quickLaunchBox.Renderer = new DockPanelStripRenderer();
             _quickLaunchBox.AutoSize = false;
-            _quickLaunchBox.Width = 200;
+            _quickLaunchBox.Width = ScaleHelper.Scale(200);
             _quickLaunchBox.Font = PluginBase.Settings.DefaultFont;
             _quickLaunchBox.Alignment = ToolStripItemAlignment.Right;
             _quickLaunchBox.Search += new EventHandler(quickLaunchBox_Search);
@@ -233,12 +231,12 @@ namespace QuickLaunch
         /// </summary>
         public void LoadSettings()
         {
-            this._settings = new Settings();
-            if (!File.Exists(this._settingFilename)) this.SaveSettings();
+            _settings = new Settings();
+            if (!File.Exists(_settingFilename)) SaveSettings();
             else
             {
-                Object obj = ObjectSerializer.Deserialize(this._settingFilename, this._settings);
-                this._settings = (Settings)obj;
+                object obj = ObjectSerializer.Deserialize(_settingFilename, _settings);
+                _settings = (Settings)obj;
             }
         }
 
@@ -247,7 +245,7 @@ namespace QuickLaunch
         /// </summary>
         public void SaveSettings()
         {
-            ObjectSerializer.Serialize(this._settingFilename, this._settings);
+            ObjectSerializer.Serialize(_settingFilename, _settings);
         }
 
 		#endregion

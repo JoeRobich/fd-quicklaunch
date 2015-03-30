@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using PluginCore.Helpers;
 
 namespace QuickLaunch.Controls
 {
@@ -26,7 +27,7 @@ namespace QuickLaunch.Controls
             if (!IsVertical)
             {
                 // Ensure it's height matches that of the menu items, since we are drawing a label
-                preferredSize.Height = 23;
+                preferredSize.Height = ScaleHelper.Scale(23);
             }
 
             return preferredSize;

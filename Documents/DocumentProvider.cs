@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using QuickLaunch.Managers;
-using PluginCore;
-using System.Windows.Forms;
+﻿using PluginCore;
 using QuickLaunch.Controls;
+using QuickLaunch.Managers;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace QuickLaunch.Documents

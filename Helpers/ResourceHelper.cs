@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using PluginCore;
 using PluginCore.Localization;
-using PluginCore;
-using System.Resources;
-using System.Reflection;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
+using System.Resources;
 
 namespace QuickLaunch.Helpers
 {
     public class ResourceHelper
     {
+        private const LocaleVersion defaultLocale = LocaleVersion.en_US;
+
         private static ResourceManager resourceManager = null;
         private static LocaleVersion storedLocale = LocaleVersion.en_US;
         private static Dictionary<string, Image> _imageCache = new Dictionary<string, Image>();
 
         /// <summary>
-        /// Gets the specified localized string.
+        /// Gets the specified localized string
         /// </summary>
         public static string GetString(string key)
         {
@@ -25,10 +25,9 @@ namespace QuickLaunch.Helpers
             if (resourceManager == null || localeSetting != storedLocale)
             {
                 storedLocale = localeSetting;
-                Assembly callingAssembly = Assembly.GetCallingAssembly();
-                string prefix = callingAssembly.GetName().Name;
-                string path = prefix + ".Resources." + storedLocale.ToString();
-                resourceManager = new ResourceManager(path, callingAssembly);
+
+                if (!TryGetResourceManager(storedLocale, key, out resourceManager))
+                    TryGetResourceManager(defaultLocale, key, out resourceManager);
             }
             result = resourceManager.GetString(key);
             if (result == null)
@@ -36,22 +35,33 @@ namespace QuickLaunch.Helpers
             return result;
         }
 
-        /// <summary>
-        /// Gets the embedded image from the Resources folder. Assumes that the image is a png.
-        /// </summary>
-        /// <param name="name">The name of the embedded image</param>
-        /// <returns></returns>
+        private static bool TryGetResourceManager(LocaleVersion locale, string testKey, out ResourceManager manager)
+        {
+            manager = null;
+
+            try
+            {
+                Assembly callingAssembly = Assembly.GetCallingAssembly();
+                string prefix = callingAssembly.GetName().Name;
+                string path = prefix + ".Resources." + locale.ToString();
+
+                var testManager = new ResourceManager(path, callingAssembly);
+                var testResult = testManager.GetString(testKey);
+                manager = testManager;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static Image GetImage(string name)
         {
             return GetImage(name, "png");
         }
 
-        /// <summary>
-        /// Gets the embedded image from the Resources folder.
-        /// </summary>
-        /// <param name="name">The name of the image.</param>
-        /// <param name="extension">The extension of the image.</param>
-        /// <returns></returns>
         public static Image GetImage(string name, string extension)
         {
             Assembly callingAssembly = Assembly.GetCallingAssembly();
@@ -61,7 +71,7 @@ namespace QuickLaunch.Helpers
             {
                 _imageCache.Add(resourceName, Image.FromStream(callingAssembly.GetManifestResourceStream(resourceName)));
             }
-            return _imageCache[resourceName];            
+            return _imageCache[resourceName];
         }
     }
 }

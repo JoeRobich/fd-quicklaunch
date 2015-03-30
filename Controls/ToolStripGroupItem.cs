@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using PluginCore.Helpers;
 
 namespace QuickLaunch.Controls
 {
@@ -14,7 +15,7 @@ namespace QuickLaunch.Controls
         public ToolStripGroupItem(string name)
             : this(name, null, null, null)
         {
-            
+
         }
 
         public ToolStripGroupItem(string name, string details)
@@ -51,12 +52,17 @@ namespace QuickLaunch.Controls
                 int padding = this.Owner.Padding.Left;
 
                 // Draw the image
-                padding += 4;
+                padding += ScaleHelper.Scale(4);
                 if (Image != null)
-                    e.Graphics.DrawImage(Image, padding, (e.ClipRectangle.Height - Image.Height) / 2);
+                {
+                    Rectangle source = new Rectangle(0, 0, Image.Width, Image.Height);
+                    Rectangle dest = new Rectangle(new Point(padding, 0), ScaleHelper.Scale(new Size(16, 16)));
+                    dest.Offset(0, (e.ClipRectangle.Height - dest.Height) / 2);
+                    e.Graphics.DrawImage(Image, dest, source, GraphicsUnit.Pixel);
+                }
 
                 // Draw the name text
-                padding += 23;
+                padding += ScaleHelper.Scale(23);
                 Size textSize = TextRenderer.MeasureText(_name, Owner.Font);
                 Rectangle textRectangle = new Rectangle(padding, 0, textSize.Width, this.Height);
                 Owner.Renderer.DrawItemText(new ToolStripItemTextRenderEventArgs(e.Graphics, this, _name, textRectangle, Owner.ForeColor, Owner.Font, ContentAlignment.MiddleLeft));

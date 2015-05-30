@@ -82,6 +82,17 @@ namespace QuickLaunch.Controls
             set { _dropdown.Renderer = value; }
         }
 
+        public void ApplyTheme()
+        {
+            var foreColor = PluginBase.MainForm.GetThemeColor("ToolStripTextBoxControl.ForeColor");
+            if (foreColor != Color.Empty)
+                ForeColor = foreColor;
+
+            var backColor = PluginBase.MainForm.GetThemeColor("ToolStripTextBoxControl.BackColor");
+            if (backColor != Color.Empty)
+                BackColor = backColor;
+        }
+
         private void ApplyWatermark()
         {
             TextBoxHelper.SetWatermark(TextBox, _watermarkText);

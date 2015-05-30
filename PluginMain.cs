@@ -118,7 +118,10 @@ namespace QuickLaunch
 		/// </summary>
 		public void HandleEvent(object sender, NotifyEvent e, HandlingPriority prority)
 		{
-
+            if (e.Type == EventType.ApplyTheme)
+            {
+                _quickLaunchBox.ApplyTheme();
+            }
 		}
 
         void _settings_OnSettingsChanged()
@@ -186,7 +189,7 @@ namespace QuickLaunch
         public void AddEventHandlers()
         {
             // Set events you want to listen (combine as flags)
-            EventManager.AddEventHandler(this, EventType.Command);
+            EventManager.AddEventHandler(this, EventType.ApplyTheme);
             ToolStripMenuItem menu = (ToolStripMenuItem)PluginBase.MainForm.FindMenuItem("SearchMenu");
             _activateItem = new ToolStripMenuItem(ResourceHelper.GetString("QuickLaunch.Label.ActivateQuickLaunch"), null, new EventHandler(ActivateQuickLaunch));
             _activateItem.Visible = false;
@@ -209,6 +212,7 @@ namespace QuickLaunch
             _quickLaunchBox.Font = PluginBase.Settings.DefaultFont;
             _quickLaunchBox.Alignment = ToolStripItemAlignment.Right;
             _quickLaunchBox.Search += new EventHandler(quickLaunchBox_Search);
+
         }
 
         void quickLaunchBox_Search(object sender, EventArgs e)

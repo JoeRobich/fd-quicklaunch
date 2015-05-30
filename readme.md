@@ -8,6 +8,7 @@ Adds a quick launch box that provides easy access to commands, files, classes, a
 [Releases](https://github.com/JoeRobich/fd-quicklaunch/releases/) 
 
 ## History
+**v0.10.1** - Handle ApplyTheme event.  
 **v0.10** - Better support for high DPI. Fixed bug with non-en_US locales. Updated to work with FD5.  
 **v0.9.1** - Now targets the .Net 2.0 Framework.  
 **v0.9** - Changed the search logic of the Open Documents and Project Types providers to use the same logic as Open Resource. The search box now handles the 'common' editing shortcuts such as ctrl+v (paste). Added search and clear icons in the margins of the search box to mimic the look and functionality of vista/web search boxes. Removed the shortcut key text from the search box watermark.  
